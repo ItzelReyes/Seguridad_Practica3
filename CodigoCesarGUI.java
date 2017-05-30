@@ -59,7 +59,7 @@ public class CodigoCesarGUI extends JFrame{
 
         public void actionPerformed(ActionEvent evt){
 			CodigoCesar cc = new CodigoCesar();
-			String codificado = cc.codificar(txtTexto.getText(),5);
+			String codificado = cc.codificar(txtTexto.getText(),5,txtClave.getText());
 			String msg = cc.decodificar(codificado,5);
             txtCodificado.setText(codificado);
             }
@@ -69,7 +69,7 @@ public class CodigoCesarGUI extends JFrame{
 
         public void actionPerformed(ActionEvent evt){
 			CodigoCesar cc = new CodigoCesar();
-			String codificado = cc.codificar(txtTexto.getText(),5);
+			String codificado = cc.codificar(txtTexto.getText(),5,txtClave.getText());
 			String msg = cc.decodificar(codificado,5);
             txtDecodificado.setText(msg);
             }

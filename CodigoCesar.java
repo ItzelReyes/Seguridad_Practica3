@@ -1,13 +1,20 @@
 public class CodigoCesar {
-	public String codificar(String mensaje, int corrimiento) {
+	public String codificar(String mensaje, int corrimiento, String clave) {
 		String codigo = "";
-		int ascii = 0;
-		int []arrayBin = new int [100];
+		char letra = '\0';
+		char letraC = '\0';
+		String []arrayBin = new String [100];
+		//String clave = "";
+		String []arrayBinC = new String [100];
+		//int []xor = new int [100];
+
 
 		mensaje = mensaje.toLowerCase();
 
 		for (int i=0; i<mensaje.length(); i++) {
-			char letra = mensaje.charAt(i);
+			letra = mensaje.charAt(i);
+			arrayBin[i] = Integer.toBinaryString(letra);
+
 			if (letra == ' ')
 				codigo += ' ';
 
@@ -16,15 +23,19 @@ public class CodigoCesar {
 			}
 			else
 				codigo += (char)(letra+corrimiento);
-			
-			ascii = (int)(letra);
 
-			for (int i=0; int < 100; i++) {
-				arrayBin[i] = Integer.toBinaryString(ascii);
-			}
 		}
 
-		return codigo + " " + ascii;
+		for (int j=0; j<clave.length(); j++) {
+			letraC = clave.charAt(j);
+			arrayBinC[j] = Integer.toBinaryString(letraC);
+		}
+/*
+		for (int k=0; k<100; k++) {
+			xor[k] = arrayBin[k] ^ arrayBinC[k];
+		}
+*/
+		return codigo + " " + arrayBin[0] + " " + arrayBinC[0];
 	}
 	public String decodificar(String codigo, int corrimiento) {
 		String mensaje = "";
