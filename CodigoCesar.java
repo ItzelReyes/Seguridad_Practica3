@@ -2,6 +2,8 @@ public class CodigoCesar {
 	public String codificar(String mensaje, int corrimiento) {
 		String codigo = "";
 		int ascii = 0;
+		int []arrayBin = new int [100];
+
 		mensaje = mensaje.toLowerCase();
 
 		for (int i=0; i<mensaje.length(); i++) {
@@ -14,8 +16,12 @@ public class CodigoCesar {
 			}
 			else
 				codigo += (char)(letra+corrimiento);
+			
 			ascii = (int)(letra);
 
+			for (int i=0; int < 100; i++) {
+				arrayBin[i] = Integer.toBinaryString(ascii);
+			}
 		}
 
 		return codigo + " " + ascii;
