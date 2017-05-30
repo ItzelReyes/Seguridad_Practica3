@@ -1,19 +1,22 @@
 public class CodigoCesar {
 	public String codificar(String mensaje, int corrimiento, String clave) {
 		String codigo = "";
+		String result1 = "";
+		String result2 = "";
+		char codigoC = '\0';
 		char letra = '\0';
 		char letraC = '\0';
-		String []arrayBin = new String [100];
-		//String clave = "";
-		String []arrayBinC = new String [100];
-		//int []xor = new int [100];
-
-
+		String bini = "";
+		String biniC = "";
+		int key = clave.length();
+		StringBuilder sb = new StringBuilder();
+		StringBuilder sb2 = new StringBuilder();
+		StringBuilder sb3 = new StringBuilder();
 		mensaje = mensaje.toLowerCase();
+
 
 		for (int i=0; i<mensaje.length(); i++) {
 			letra = mensaje.charAt(i);
-			arrayBin[i] = Integer.toBinaryString(letra);
 
 			if (letra == ' ')
 				codigo += ' ';
@@ -24,18 +27,27 @@ public class CodigoCesar {
 			else
 				codigo += (char)(letra+corrimiento);
 
+			codigoC = codigo.charAt(i); 
+			bini = Integer.toBinaryString(codigoC);
+			sb.append(bini);
+			result1 = sb.toString();
 		}
 
 		for (int j=0; j<clave.length(); j++) {
 			letraC = clave.charAt(j);
-			arrayBinC[j] = Integer.toBinaryString(letraC);
+			biniC = Integer.toBinaryString(letraC);
+
+			sb2.append(biniC);
+			result2 = sb2.toString();
 		}
-/*
-		for (int k=0; k<100; k++) {
-			xor[k] = arrayBin[k] ^ arrayBinC[k];
+
+		for (int k=0; k<result1.length(); k++) {
+			sb3.append((result1.charAt(k) ^ result2.charAt(k)));
 		}
-*/
-		return codigo + " " + arrayBin[0] + " " + arrayBinC[0];
+
+			String str = sb3.toString();
+
+		return codigo + " " + str;
 	}
 	public String decodificar(String codigo, int corrimiento) {
 		String mensaje = "";
