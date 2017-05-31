@@ -1,4 +1,7 @@
 public class CodigoCesar {
+		String encrypt1 = "";
+		String decrypt1 = "";
+
 	public String codificar(String mensaje, int corrimiento, String clave) {
 		String codigo = "";
 		String result1 = "";
@@ -9,14 +12,18 @@ public class CodigoCesar {
 		String bini = "";
 		String biniC = "";
 		int key = clave.length();
+		int []shift = new int [100];
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb3 = new StringBuilder();
+
 		mensaje = mensaje.toLowerCase();
 
+		encrypt1 = encrypt(2,mensaje);
 
-		for (int i=0; i<mensaje.length(); i++) {
-			letra = mensaje.charAt(i);
+		for (int i=0; i<encrypt1.length(); i++) {
+
+			letra = encrypt1.charAt(i);
 
 			if (letra == ' ')
 				codigo += ' ';
@@ -47,10 +54,14 @@ public class CodigoCesar {
 
 			String str = sb3.toString();
 
-		return codigo + " " + str;
+		return encrypt1 + " " + codigo + " " + str;
 	}
+
 	public String decodificar(String codigo, int corrimiento) {
 		String mensaje = "";
+
+		decrypt1 = decrypt(2,encrypt1);
+
 		codigo = codigo.toLowerCase();
 
 		for (int i=0; i<codigo.length(); i++) {
@@ -66,7 +77,7 @@ public class CodigoCesar {
 			}
 		}
 
-		return mensaje;
+		return decrypt1;
 	}
 
 	public int buscarCorrimiento(String texto) {
@@ -87,5 +98,31 @@ public class CodigoCesar {
 		}
 
 		return mayorIndice;
+	}
+
+	public static String encrypt(int key, String plainT){
+     char[] res = new char[plainT.length()];
+     int k = 0;
+
+     for (int j = 0; j < key; j++) {
+        for (int i = j; i < plainT.length(); i += key) {
+            res[k++] = plainT.charAt(i);
+        }
+    }
+
+    return String.copyValueOf(res);
+	}
+
+	public static String decrypt(int key, String encT){
+     char[] res = new char[encT.length()];
+     int k = 0;
+
+     for (int j = 0; j < key; j++) {
+        for (int i = j; i < encT.length(); i += key) {
+            res[i] = encT.charAt(k++);
+        }
+    }
+
+    return String.copyValueOf(res);
 	}
 }
