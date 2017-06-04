@@ -1,22 +1,36 @@
+import java.math.BigInteger;
+
 public class CodigoCesar {
+		String str = "";
+		String str2 = "";
 		String encrypt1 = "";
 		String decrypt1 = "";
+		String result1 = "";
+		String result2 = "";
+		char []claveA = new char[100];
+		String miniClave = "";
+		StringBuilder sb4 = new StringBuilder();
+		StringBuilder sb5 = new StringBuilder();
 
 	public String codificar(String mensaje, int corrimiento, String clave) {
 		String codigo = "";
-		String result1 = "";
-		String result2 = "";
 		char codigoC = '\0';
 		char letra = '\0';
 		char letraC = '\0';
 		String bini = "";
 		String biniC = "";
 		int key = clave.length();
-		int []shift = new int [100];
+		String claveB = clave;
+		String claveC = clave;
 		StringBuilder sb = new StringBuilder();
 		StringBuilder sb2 = new StringBuilder();
 		StringBuilder sb3 = new StringBuilder();
 
+		while(claveC.length()<mensaje.length()){
+			claveC += claveB;
+		}
+
+		System.out.println("Soy clave c: " + claveC);
 		mensaje = mensaje.toLowerCase();
 
 		encrypt1 = encrypt(2,mensaje);
@@ -40,8 +54,8 @@ public class CodigoCesar {
 			result1 = sb.toString();
 		}
 
-		for (int j=0; j<clave.length(); j++) {
-			letraC = clave.charAt(j);
+		for (int j=0; j<claveC.length(); j++) {
+			letraC = claveC.charAt(j);
 			biniC = Integer.toBinaryString(letraC);
 
 			sb2.append(biniC);
@@ -52,20 +66,51 @@ public class CodigoCesar {
 			sb3.append((result1.charAt(k) ^ result2.charAt(k)));
 		}
 
-			String str = sb3.toString();
+		str = sb3.toString();
 
-		return encrypt1 + " " + codigo + " " + str;
+		int b;
+		String s3 = "";
+		String s4 = "";
+
+		for (int m = 0; m < str.length()/7; m++) {
+
+        	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2);
+        	s3 += (char)(b);
+        	sb5.append(s3);
+        	s4 = sb5.toString();
+
+    	}
+
+		return s4;
 	}
 
 	public String decodificar(String codigo, int corrimiento) {
+
+		int a;
+		String s2 = "";
+
+		for (int k=0; k<result1.length(); k++) {
+			sb4.append((str.charAt(k) ^ result2.charAt(k)));
+		}
+
+		str2 = sb4.toString();
+
+		System.out.println("SOY STR2: " + str2);
+
+		for (int i = 0; i < str2.length()/7; i++) {
+
+        	a = Integer.parseInt(str2.substring(7*i,(i+1)*7),2);
+        	s2 += (char)(a);
+    	}
+
+		System.out.println("SOY S2: " + s2);
+
 		String mensaje = "";
 
-		decrypt1 = decrypt(2,encrypt1);
+		codigo = s2.toLowerCase();
 
-		codigo = codigo.toLowerCase();
-
-		for (int i=0; i<codigo.length(); i++) {
-			char letra = codigo.charAt(i);
+		for (int i=0; i<s2.length(); i++) {
+			char letra = s2.charAt(i);
 			if (letra == ' ') {
 				mensaje += ' ';
 			}
@@ -76,6 +121,8 @@ public class CodigoCesar {
 				mensaje += (char)(letra-corrimiento);
 			}
 		}
+
+		decrypt1 = decrypt(2,mensaje);
 
 		return decrypt1;
 	}
