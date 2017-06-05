@@ -38,8 +38,9 @@ public class CodigoCesar {
 
 			letra = encrypt1.charAt(i);
 
-			if (letra == ' ')
+			if (letra == ' '){
 				codigo += ' ';
+			}
 
 			else if (letra+corrimiento > 'z') {
 				codigo += (char)((letra+corrimiento-'a') % ('z'-'a') + 'a'-1);
@@ -52,6 +53,8 @@ public class CodigoCesar {
 			sb.append(bini);
 			result1 = sb.toString();
 		}
+
+        System.out.println("SOY codigo con *: " + codigo);
 
 		for (int j=0; j<claveC.length(); j++) {
 			letraC = claveC.charAt(j);
@@ -73,7 +76,7 @@ public class CodigoCesar {
 		//String s4 = "";
 
 		for (int m = 0; m < str.length()/7; m++) {
-        	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2)+90;
+        	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2)+65;
         	System.out.println(str);
         	System.out.println("SOY b: " + b);
         	s3 += (char)(b);
