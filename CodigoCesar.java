@@ -30,7 +30,6 @@ public class CodigoCesar {
 			claveC += claveB;
 		}
 
-		System.out.println("Soy clave c: " + claveC);
 		mensaje = mensaje.toLowerCase();
 
 		encrypt1 = encrypt(2,mensaje);
@@ -68,20 +67,21 @@ public class CodigoCesar {
 
 		str = sb3.toString();
 
+
 		int b;
-		String s3 = "";
-		String s4 = "";
+		String s3 = " ";
+		//String s4 = "";
 
 		for (int m = 0; m < str.length()/7; m++) {
-
-        	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2);
+        	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2)+90;
+        	System.out.println(str);
+        	System.out.println("SOY b: " + b);
         	s3 += (char)(b);
-        	sb5.append(s3);
-        	s4 = sb5.toString();
-
     	}
 
-		return s4;
+    	System.out.println("SOY S3: " + s3);
+
+		return s3;
 	}
 
 	public String decodificar(String codigo, int corrimiento) {
@@ -100,10 +100,10 @@ public class CodigoCesar {
 		for (int i = 0; i < str2.length()/7; i++) {
 
         	a = Integer.parseInt(str2.substring(7*i,(i+1)*7),2);
+        	        	System.out.println("SOY a: " + a);
+
         	s2 += (char)(a);
     	}
-
-		System.out.println("SOY S2: " + s2);
 
 		String mensaje = "";
 
