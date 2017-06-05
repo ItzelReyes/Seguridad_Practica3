@@ -11,6 +11,7 @@ public class CodigoCesar {
 		String miniClave = "";
 		StringBuilder sb4 = new StringBuilder();
 		StringBuilder sb5 = new StringBuilder();
+		String reverse = "";
 
 	public String codificar(String mensaje, int corrimiento, String clave) {
 		String codigo = "";
@@ -48,13 +49,15 @@ public class CodigoCesar {
 			else
 				codigo += (char)(letra+corrimiento);
 
+			StringBuilder builder = new StringBuilder(codigo);
+			reverse = builder.reverse().toString();
+			System.out.println("SOy reverse: " + reverse);
+
 			codigoC = codigo.charAt(i); 
 			bini = Integer.toBinaryString(codigoC);
 			sb.append(bini);
 			result1 = sb.toString();
 		}
-
-        System.out.println("SOY codigo con *: " + codigo);
 
 		for (int j=0; j<claveC.length(); j++) {
 			letraC = claveC.charAt(j);
@@ -78,13 +81,10 @@ public class CodigoCesar {
 		for (int m = 0; m < str.length()/7; m++) {
         	b = Integer.parseInt(str.substring(7*m,(m+1)*7),2)+90;
         	System.out.println(str);
-        	System.out.println("SOY b: " + b);
         	s3 += (char)(b);
     	}
 
-    	System.out.println("SOY S3: " + s3);
-
-		return s3;
+		return encrypt1 + " " + s3;
 	}
 
 	public String decodificar(String codigo, int corrimiento) {
@@ -98,19 +98,17 @@ public class CodigoCesar {
 
 		str2 = sb4.toString();
 
-		System.out.println("SOY STR2: " + str2);
-
 		for (int i = 0; i < str2.length()/7; i++) {
 
         	a = Integer.parseInt(str2.substring(7*i,(i+1)*7),2);
-        	        	System.out.println("SOY a: " + a);
-
         	s2 += (char)(a);
     	}
 
-		String mensaje = "";
+		StringBuilder builder2 = new StringBuilder(reverse);
+		String reverse2 = builder2.reverse().toString();
+		System.out.println("SOy reverse2: " + reverse2);
 
-		codigo = s2.toLowerCase();
+		String mensaje = "";
 
 		for (int i=0; i<s2.length(); i++) {
 			char letra = s2.charAt(i);
